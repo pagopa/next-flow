@@ -32,6 +32,7 @@ jobs:
   check_source_branch:
     name: Check Source Branches
     runs-on: ubuntu-latest
+    if: ${{ (github.head_ref  != 'next' ||  github.head_ref  != 'hotfix*') &&  github.base_ref == 'main' }}
     steps:
       - name: Check Source Branches
         run: |
