@@ -29,6 +29,18 @@ jobs:
         with:
           configuration-path: '.github/auto_assign.yml'
 
+  check_source_branch:
+    name: Check Source Branches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Source Branches
+        run: |
+          if [ ${{ github.head_ref }} != "next" || ${{ github.head_ref }} != "hotfix*" ] && [ ${{ github.base_ref }} == "main" ]; then
+            echo "Merge requests to main branch are only allowed from next branch or branches with a name that starts with hotfix"
+            exit 1
+          fi
+  
+
   check_labels:
     name: Check Required Labels
     # The type of runner that the job will run on
