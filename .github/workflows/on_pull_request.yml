@@ -1,0 +1,33 @@
+name: On Pull Request
+
+on:
+  merge_group:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+    types: [ closed ]
+
+
+permissions:
+  packages: write
+  contents: write
+  issues: write
+  id-token: write
+  actions: read
+
+
+jobs:
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Semantic Version
+        id: semver
+        uses: pagopa/github-actions-template/maven-semver@v1
+        with:
+          semver: 'major'
+          beta: false
+          jdk_version: 17
+
+
