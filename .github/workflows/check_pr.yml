@@ -32,9 +32,9 @@ jobs:
   check_source_branch:
     name: Check Source Branches
     runs-on: ubuntu-latest
-    if: ${{ (github.head_ref  != 'next' ||  github.head_ref  != 'hotfix*') &&  github.base_ref == 'main' }}
     steps:
       - name: Check Source Branches
+        if: ${{ (github.head_ref  != 'next' ||  github.head_ref  != 'hotfix*') &&  github.base_ref == 'main' }}
         run: |
           echo "Merge requests to main branch are only allowed from next branch or branches with a name that starts with hotfix"
           exit 1
