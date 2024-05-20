@@ -82,7 +82,7 @@ jobs:
     name: Deploy on AKS UAT
     needs: [ setup, release, image ]
     if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/templates/deploy_with_github_runner.yml
+    uses: ./.github/workflows/deploy_with_github_runner.yml
     with:
       environment: uat
     secrets: inherit
@@ -100,7 +100,7 @@ jobs:
     name: Deploy on AKS UAT
     needs: [ setup, release, image ]
     if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/templates/deploy_with_github_runner.yml
+    uses: ./.github/workflows/deploy_with_github_runner.yml
     with:
       environment: prod
     secrets: inherit
