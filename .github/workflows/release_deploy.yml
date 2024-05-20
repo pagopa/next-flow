@@ -2,12 +2,6 @@ name: Release And Deploy
 
 # Controls when the workflow will run
 on:
-  merge_group:
-    branches:
-      - main
-  pull_request:
-    types: [ closed ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
@@ -97,6 +91,8 @@ jobs:
           prerelease: true
           skip_ci: false
 
+      - name: Checkout code
+        uses: actions/checkout@v4 # required to make the script available for next step
       - name: Generate Release Notes for Latest
         id: generate_notes
         if: ${{ needs.setup.outputs.environment == 'prod' }}
@@ -157,7 +153,7 @@ jobs:
     name: Deploy on AKS
     needs: [ setup, release, image ]
     if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/deploy_with_github_runner.yml
+    uses: ./.github/workflows/templates/deploy_with_github_runner.yml
     with:
       environment: ${{ needs.setup.outputs.environment }}
     secrets: inherit
