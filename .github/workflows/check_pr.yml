@@ -44,10 +44,10 @@ jobs:
                 console.log(file);
                 });
             });
-            console.log(context);
+            //console.log(context);
             console.log(process.env);
-            //const script = require('./.github/workflows/github_scripts/check_source_branch.js')
-            //script({github, context, core})
+            const script = require('./.github/workflows/github_scripts/check_source_branch.js')
+            script({github, context, core})
   
   
   check_labels:
