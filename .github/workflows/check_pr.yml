@@ -33,6 +33,8 @@ jobs:
     name: Check Source Branches
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # required to make the script available for next step
       - name: Check Source Branches
         uses: actions/github-script@v6.3.3
         with:
