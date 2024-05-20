@@ -91,6 +91,8 @@ jobs:
           prerelease: true
           skip_ci: false
 
+      - name: Checkout code
+        uses: actions/checkout@v4 # required to make the script available for next step
       - name: Generate Release Notes for Latest
         id: generate_notes
         if: ${{ needs.setup.outputs.environment == 'prod' }}
