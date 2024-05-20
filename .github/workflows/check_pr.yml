@@ -39,12 +39,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            fs.readdir('./', (err, files) => {
-              files.forEach(file => {
+            await fs.readdir('./', (err, files) => {
+               files.forEach(file => {
                 console.log(file);
                 });
             });
             console.log(context);
+            console.log(process.env);
             //const script = require('./.github/workflows/github_scripts/check_source_branch.js')
             //script({github, context, core})
   
