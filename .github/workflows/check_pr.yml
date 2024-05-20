@@ -44,6 +44,7 @@ jobs:
                 console.log(file);
                 });
             });
+            console.log(context);
             //const script = require('./.github/workflows/github_scripts/check_source_branch.js')
             //script({github, context, core})
   
