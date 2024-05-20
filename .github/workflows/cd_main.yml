@@ -116,7 +116,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = require('./github_scripts/make_latest_release.js')
+            const script = require('./.github/workflows/github_scripts/make_latest_release.js')
             await script({github, context, core})
 
 

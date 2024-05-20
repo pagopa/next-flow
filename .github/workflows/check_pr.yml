@@ -38,7 +38,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = require('./github_scripts/check_source_branch.js')
+            const script = require('./.github/workflows/github_scripts/check_source_branch.js')
             script({github, context, core})
   
 
@@ -55,7 +55,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = require('./github_scripts/check_required_labels.js')
+            const script = require('./.github/workflows/github_scripts/check_required_labels.js')
             script({github, context, core})
   check_size:
     runs-on: ubuntu-latest
@@ -73,6 +73,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = require('./github_scripts/check_size.js')
+            const script = require('./.github/workflows/github_scripts/check_size.js')
             await script({github, context, core})
 
