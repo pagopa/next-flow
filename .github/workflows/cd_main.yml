@@ -82,7 +82,7 @@ jobs:
     name: Deploy on AKS UAT
     needs: [ setup, release, image ]
     if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/deploy_with_github_runner.yml
+    uses: ./.github/workflows/template/deploy_with_github_runner.yml
     with:
       environment: uat
     secrets: inherit
@@ -100,33 +100,24 @@ jobs:
     name: Deploy on AKS UAT
     needs: [ setup, release, image ]
     if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/deploy_with_github_runner.yml
+    uses: ./.github/workflows/template/deploy_with_github_runner.yml
     with:
       environment: prod
     secrets: inherit
 
   release:
-    name: Create a New Pre-Release
+    name: Create a New Release
     runs-on: ubuntu-latest
     if: ${{ needs.setup.outputs.semver != 'skip' }}
     steps:
-      - name: Generate Release Notes for Latest
+      - name: Make Latest Release
         id: generate_notes
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            var latest = await github.rest.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            }); 
-
-            await github.rest.repos.updateRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: latest.data.id,
-              prerelease: false
-            });
+            const script = require('./github_scripts/make_latest_release.js')
+            await script({github, context, core})
 
 
     
